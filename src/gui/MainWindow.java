@@ -6,9 +6,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -31,14 +33,13 @@ public class MainWindow extends JFrame {
 		
 		private JFileChooser jfcImage;
 		private JTextField jtxtImage;
-		private JPanel jpImage;
 		public String filePath;
 		
 		public ImageSelector() {
 			JPanel top = new JPanel();
 			top.setLayout(new FlowLayout());
 			
-			jtxtImage = new JTextField(50);
+			jtxtImage = new JTextField(25);
 			JButton jb = new JButton("Choose");
 			
 			top.add(jtxtImage);
@@ -46,29 +47,34 @@ public class MainWindow extends JFrame {
 			
 			setLayout(new BorderLayout());
 			
-//			jpImage.setBackground(Color.RED);
-			
-
-			 class ImagePanel extends JPanel{
-				 private BufferedImage image;
+			class ImagePanel extends JPanel{
+				private static final long serialVersionUID = -3316075427568868829L;
+				
+				private BufferedImage image;
+				
+				public ImagePanel() {
+					image = null;
+				}
+				
+				public void setImage(String path) {
+					try {
+						image = ImageIO.read(new File(path));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 				 
-				 public ImagePanel() throws IOException {
-					 image = ImageIO.read(new File("D:/Utilisateurs/Fred/Mes documents/Fac/S5/POO/Projet/book_left.jpg"));
-				 }
-				 
-				 protected void paintComponent(Graphics g) {
-					 super.paintComponent(g);
-					 g.drawImage(image, 0, 0, null); 
-				 }
-			 }
-			 
-			 try {
-				jpImage = new ImagePanel();
-				jpImage.repaint();
-			} catch (IOException e) {
-				e.printStackTrace();
+				protected void paintComponent(Graphics g) {
+				 	super.paintComponent(g);
+				 	if (image != null) {
+				 		double scale = (double)image.getWidth()/(double)getWidth();
+				 		double height = (double)image.getHeight()/scale;
+					 	g.drawImage(image, 0, 0, getWidth(), (int) height, null);
+				 	}
+				}
 			}
 			
+			final ImagePanel jpImage = new ImagePanel();
 			add(top, BorderLayout.NORTH);
 			add(jpImage, BorderLayout.CENTER);
 			
@@ -82,9 +88,11 @@ public class MainWindow extends JFrame {
 					jfcImage.setFileFilter(filter);
 					int returnVal = jfcImage.showOpenDialog(ImageSelector.this);
 					if(returnVal == JFileChooser.APPROVE_OPTION) {
-						 filePath = jfcImage.getSelectedFile().getAbsolutePath();
-						 jtxtImage.setText(filePath);
+						filePath = jfcImage.getSelectedFile().getAbsolutePath();
+						jtxtImage.setText(filePath);
 						 
+						jpImage.setImage(filePath);
+						jpImage.repaint();
 				    }
 				}
 				
