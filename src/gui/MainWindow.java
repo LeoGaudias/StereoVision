@@ -22,16 +22,17 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class MainWindow extends JFrame {
+import stereo.myImage;
 
-	private static final long serialVersionUID = -2278436951424873713L;
+@SuppressWarnings("serial")
+public class MainWindow extends JFrame {
 	
 	private class ImageSelector extends JPanel {
-		private static final long serialVersionUID = -3754752595031246142L;
 		
 		private JFileChooser jfcImage;
 		private JTextField jtxtImage;
 		public String filePath;
+		public BufferedImage image;
 		
 		public ImageSelector() {
 			JPanel top = new JPanel();
@@ -46,9 +47,6 @@ public class MainWindow extends JFrame {
 			setLayout(new BorderLayout());
 			
 			class ImagePanel extends JPanel{
-				private static final long serialVersionUID = -3316075427568868829L;
-				
-				private BufferedImage image;
 				
 				public ImagePanel() {
 					image = null;
@@ -163,6 +161,16 @@ public class MainWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
+		});
+		
+		jbGenerate.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				myImage left = new myImage(imgLeft.image);
+//				myImage right = new myImage(imgRight.image);
+			}
+			
 		});
 		
 	}
