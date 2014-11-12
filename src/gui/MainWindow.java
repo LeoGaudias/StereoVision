@@ -1,16 +1,13 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -20,6 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -121,7 +119,7 @@ public class MainWindow extends JFrame {
 			JPanel jpTop = new JPanel();
 			jpTop.setLayout(new FlowLayout());
 			
-			String txtExplain = "Choisir deux images séparées par un intervalle à préciser. Cliquer sur générer.";
+			String txtExplain = "Choisir deux images sÃ©parÃ©es par un intervalle Ã  prÃ©ciser. Cliquer sur gÃ©nÃ©rer.";
 			JLabel jlExplain = new JLabel(txtExplain);
 			
 			jpTop.add(jlExplain);
@@ -132,9 +130,14 @@ public class MainWindow extends JFrame {
 			JPanel jpBottom = new JPanel();
 			jpBottom.setLayout(new FlowLayout());
 			
+			JLabel jlEcart = new JLabel("Ecart entre les deux images en cm :");
+			JSpinner jsEcart = new JSpinner();
+			jsEcart.setValue(10);
 			JButton jbClose = new JButton("Fermer");
-			JButton jbGenerate = new JButton("Générer");
+			JButton jbGenerate = new JButton("GÃ©nÃ©rer");
 			
+			jpBottom.add(jlEcart);
+			jpBottom.add(jsEcart);
 			jpBottom.add(jbGenerate);
 			jpBottom.add(jbClose);
 			
@@ -166,15 +169,15 @@ public class MainWindow extends JFrame {
 	
 	public static void main(String[] args) {
 		
-//		try {
-//			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-//		} catch(Exception e) {
-//			try {
-//		        UIManager.setLookAndFeel(
-//	        		UIManager.getSystemLookAndFeelClassName()
-//		        );
-//			} catch(Exception e2) { }
-//	    } 
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch(Exception e) {
+			try {
+		        UIManager.setLookAndFeel(
+	        		UIManager.getSystemLookAndFeelClassName()
+		        );
+			} catch(Exception e2) { }
+	    } 
 		
 		MainWindow m = new MainWindow();
 		m.setVisible(true);
