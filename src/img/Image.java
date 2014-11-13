@@ -8,57 +8,38 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Image {
-	public static void main(String[] arg){
-		BufferedImage img = null;
+	
+	BufferedImage img;
+	float[][] hue;
+	
+	public Image(String chemin){
 		try {
-		    img = ImageIO.read(new File("C:\\Users\\maxime\\Desktop\\empty_left.jpg"));
-		} catch (IOException e) {
-		}
-		
-		System.out.println(img);
+		    img = ImageIO.read(new File(chemin));
+		} 
+		catch (IOException e) { }
 		
 		int width = img.getWidth();
 		int height = img.getHeight();
 		
+		hue = new float[width][height];
+		
 		int pixel;
 		Color c;
 		
-		int r, g, b;
-		float max = -1, min = 1000, dif;
-		
-		
-		
-		int tmp = 0, t, l, s;
-		
-		float[] myC = new float[3];
-		
-		MyColor[][] hsb = new MyColor[width][height];
-		boolean f = false;
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height; j++){
 				pixel = img.getRGB(i, j);
 				c = new Color(pixel);
-				
-				myC = Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), null);
-				
-				MyColor myColor = new MyColor(myC[0], myC[1], myC[2]);
-				hsb[i][j] = myColor;
-				
-				if(myC[0] > 0.34 && myC[0] < 0.43 && !f){
-					System.out.println("x :"+ i + ",y = "+j);
-					f = true;
-				}
-				else
-					f = false;
-					
-				
-				if(max < myC[0]){max = myC[0];} 
-				if(min > myC[0]){min = myC[0];} 
-				
+				hue[i][j] = Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), null)[0];
 			}
 		}	
-		System.out.println("MAX "+max);
-		System.out.println("MIN "+min);
+	}
+	
+	
+	
+	public static void main(String[] arg){
+		Image img = new Image("img\\book_left.jpg");
+		
 		
 	}
 
