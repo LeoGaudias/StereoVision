@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import stereo.Mask;
 import stereo.myImage;
 
 @SuppressWarnings("serial")
@@ -106,7 +107,7 @@ public class MainWindow extends JFrame {
 		setMinimumSize(new Dimension(1000, 750));
 		setSize(1000, 750);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+//		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		/*
 		 * 	Window elements
@@ -168,7 +169,13 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				myImage left = new myImage(imgLeft.image);
-//				myImage right = new myImage(imgRight.image);
+				Mask m1 = left.getMask(left.reperes.get(0), 10);
+//				m1.print();
+				myImage right = new myImage(imgRight.image);
+				Mask m2 = right.getMask(right.reperes.get(1), 10);
+				System.out.println(right.findMask(m2));
+//				m2.print();
+//				System.out.println(m1.equals(m2));
 			}
 			
 		});
