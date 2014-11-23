@@ -40,18 +40,20 @@ public class Image {
 	
 	
 	public static void main(String[] arg){
-		Image Myimg = new Image("img\\pv.jpg");
+		//Image Myimg = new Image("img\\unPoint.jpg");
+		Image Myimg = new Image("img\\sansPoint.jpg");
+		//Image Myimg = new Image("img\\pv.jpg");
 		//Image Myimg = new Image("img\\empty_left.jpg");
 		
 		int width = Myimg.img.getWidth();
 		int height = Myimg.img.getHeight();
 		
-		float hue;
+		float hue = 0;
 		boolean in;
 		
 		ArrayList<Point> li = new ArrayList<Point>();
 		boolean point_pres = false;
-		int r  = 4;
+		int r  = 2;
 		for(int i = r; i < width - r; i++){
 			for(int j = r; j < height - r; j++){
 				
@@ -59,25 +61,31 @@ public class Image {
 				for(int m = -r; m < r + 1 && in; m++){
 					for(int n = -r; n < r + 1 && in; n++){
 						hue = Myimg.hue[i+m][j+n];
-						if(hue < 0.23 || hue > 0.43)
+						//System.out.print(m+" "+n+" hue = "+hue+" ||  ");
+						if(hue < 0.322 || hue > 0.418)
 							in = false;
 					}
 				}
+				//System.out.println();
 				if(in){
 					Point p1 = new Point(i,j);
-					li.add(p1);		
-				}	
+					li.add(p1);
+					System.out.println("in :"+i + " "+j);
+				}
+				else{
+					//System.out.println("out :"+i + " "+j);
+				}
 			}
 		}
 		
-		System.out.println(li);
+		//System.out.println(li);
 		
 		ArrayList<Point> centres = new ArrayList<Point>();
 		
 		for(Point pi : li){
 			boolean isCentre = true;
 			for(Point pj : centres){
-				if(Math.abs(pj.x - pi.x) < 15 && Math.abs(pj.y - pi.y) < 15)
+				if(Math.abs(pj.x - pi.x) < 10 && Math.abs(pj.y - pi.y) < 10)
 					isCentre = false;
 			}
 			if(isCentre)
