@@ -33,7 +33,7 @@ public class MainWindow extends JFrame {
 		private JFileChooser jfcImage;
 		private JTextField jtxtImage;
 		public String filePath;
-		public BufferedImage image;
+		public myImage image;
 		
 		public ImageSelector() {
 			JPanel top = new JPanel();
@@ -55,7 +55,7 @@ public class MainWindow extends JFrame {
 				
 				public void setImage(String path) {
 					try {
-						image = ImageIO.read(new File(path));
+						image = new myImage(ImageIO.read(new File(path)));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -169,12 +169,14 @@ public class MainWindow extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				myImage left = new myImage(imgLeft.image);
-				Mask m1 = left.getMask(left.reperes.get(0), 10);
+//				myImage left = new myImage(imgLeft.image);
+				myImage left = imgLeft.image;
+				left.findGreenPoints();
+//				Mask m1 = left.getMask(left.reperes.get(0), 10);
 //				m1.print();
-				myImage right = new myImage(imgRight.image);
-				Mask m2 = right.getMask(right.reperes.get(1), 10);
-				System.out.println(right.findMask(m2));
+//				myImage right = new myImage(imgRight.image);
+//				Mask m2 = right.getMask(right.reperes.get(1), 10);
+//				System.out.println(right.findMask(m2));
 //				m2.print();
 //				System.out.println(m1.equals(m2));
 			}
