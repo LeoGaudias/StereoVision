@@ -172,8 +172,8 @@ public class MainWindow extends JFrame {
 //				myImage left = new myImage(imgLeft.image);
 				myImage left = imgLeft.image;
 				left.findGreenPoints();
-//				Mask m1 = left.getMask(left.reperes.get(0), 10);
-//				m1.print();
+				Mask m1 = left.getMask(left.reperes.get(0), 10);
+				m1.print();
 //				myImage right = new myImage(imgRight.image);
 //				Mask m2 = right.getMask(right.reperes.get(1), 10);
 //				System.out.println(right.findMask(m2));

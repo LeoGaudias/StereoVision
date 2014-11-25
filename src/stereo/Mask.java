@@ -1,15 +1,17 @@
 package stereo;
 
+import java.awt.Point;
+
 public class Mask {
 	public int taille; //Longueur ou largeur /2
-	public int[] centre;
+	public Point centre;
 	public MyColor pixels[][];
 	
 	public Mask(int taille, int[] centre) {
 		pixels = new MyColor[taille*2+1][taille*2+1];
 	}
 	
-	public Mask(MyColor[][] colors, int[] center) {
+	public Mask(MyColor[][] colors, Point center) {
 		pixels = colors;
 		taille = (colors.length-1)/2;
 		centre = center;
