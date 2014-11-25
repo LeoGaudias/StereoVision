@@ -104,7 +104,8 @@ public class MainWindow extends JFrame {
 		 */
 		setTitle("StereoVision");
 		setLayout(new BorderLayout());
-		setMinimumSize(new Dimension(1000, 750));
+//		setMinimumSize(new Dimension(1000, 750));
+		setResizable(false);
 		setSize(1000, 750);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		setExtendedState(JFrame.MAXIMIZED_BOTH);
