@@ -3,7 +3,11 @@ package stereo;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class myImage extends BufferedImage {
 	
@@ -79,10 +83,11 @@ public class myImage extends BufferedImage {
 				bri = bri/((2*r + 1)*(2*r + 1));
 				
 				if(in
-						&& sat > 0.12
-						&& bri > 0.282 
+						&& sat > 0.135
+						&& bri > 0.1 
 						)
 				{
+					//System.out.println("i : "+i+" j : "+ j + " | "+ sat+ "  "+bri);
 					Point p1 = new Point(i,j);
 					li.add(p1);
 				}
@@ -96,7 +101,7 @@ public class myImage extends BufferedImage {
 			
 			boolean added = false;
 			for(ArrayList<Point> l : patates){
-				if(Math.abs(l.get(0).x - pi.x) < 20 && Math.abs(l.get(0).y - pi.y) < 20){
+				if(Math.abs(l.get(0).x - pi.x) < 25 && Math.abs(l.get(0).y - pi.y) < 25){
 					l.add(pi);
 					added = true;
 					break;
@@ -131,11 +136,22 @@ public class myImage extends BufferedImage {
 		}
 		
 		
-		System.out.println(reperes
-				+"\nnombre points verts : "+nbCentre);
+		/*System.out.println(reperes
+				+"\nnombre points verts : "+nbCentre);*/
 		
 		return reperes;
 		
+	}
+	
+	public static void main(String[] args){
+		myImage img = null;
+		try {
+			img = new myImage(ImageIO.read(new File("img/empty_left.jpg")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		img.findGreenPoints();
 	}
 
 }

@@ -5,11 +5,13 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -34,6 +36,7 @@ public class MainWindow extends JFrame {
 		private JTextField jtxtImage;
 		public String filePath;
 		public myImage image;
+		public BufferedImage croix;
 		
 		public ImageSelector() {
 			JPanel top = new JPanel();
@@ -51,11 +54,13 @@ public class MainWindow extends JFrame {
 				
 				public ImagePanel() {
 					image = null;
+					croix=null;
 				}
 				
 				public void setImage(String path) {
 					try {
 						image = new myImage(ImageIO.read(new File(path)));
+						croix =  ImageIO.read(new File("img/point.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -67,6 +72,13 @@ public class MainWindow extends JFrame {
 				 		double scale = (double)image.getWidth()/(double)getWidth();
 				 		double height = (double)image.getHeight()/scale;
 					 	g.drawImage(image, 0, 0, getWidth(), (int) height, null);
+					 	
+					 	ArrayList<Point> greenPoints = image.findGreenPoints();
+					 	
+					 	for(Point pi : greenPoints){
+					 		
+					 		g.drawImage(croix, (int) ((pi.x)/scale-10), (int)((pi.y)/scale-10), null);
+					 	}
 				 	}
 				}
 			}
@@ -82,6 +94,7 @@ public class MainWindow extends JFrame {
 					jfcImage = new JFileChooser();
 					FileNameExtensionFilter filter = new FileNameExtensionFilter(
 					        "JPG & GIF Images", "jpg", "gif");
+					jfcImage.setCurrentDirectory(new File("img"));
 					jfcImage.setFileFilter(filter);
 					int returnVal = jfcImage.showOpenDialog(ImageSelector.this);
 					if(returnVal == JFileChooser.APPROVE_OPTION) {
@@ -146,8 +159,8 @@ public class MainWindow extends JFrame {
 			 */
 			JPanel jpMain = new JPanel();
 			jpMain.setLayout(new GridLayout(1, 2));
-			ImageSelector imgLeft = new ImageSelector();
-			ImageSelector imgRight = new ImageSelector();
+			final ImageSelector imgLeft = new ImageSelector();
+			final ImageSelector imgRight = new ImageSelector();
 			jpMain.add(imgLeft);
 			jpMain.add(imgRight);
 		
