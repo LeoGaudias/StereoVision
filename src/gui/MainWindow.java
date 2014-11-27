@@ -37,6 +37,7 @@ public class MainWindow extends JFrame {
 		public String filePath;
 		public myImage image;
 		public BufferedImage croix;
+		public BufferedImage Redcroix;
 		
 		public ImageSelector() {
 			JPanel top = new JPanel();
@@ -61,6 +62,7 @@ public class MainWindow extends JFrame {
 					try {
 						image = new myImage(ImageIO.read(new File(path)));
 						croix =  ImageIO.read(new File("img/point.png"));
+						Redcroix =  ImageIO.read(new File("img/RedPoint.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -74,10 +76,16 @@ public class MainWindow extends JFrame {
 					 	g.drawImage(image, 0, 0, getWidth(), (int) height, null);
 					 	
 					 	ArrayList<Point> greenPoints = image.findGreenPoints();
+					 	image.IsCarree();
 					 	
 					 	for(Point pi : greenPoints){
-					 		
-					 		g.drawImage(croix, (int) ((pi.x)/scale-10), (int)((pi.y)/scale-10), null);
+					 		if(image.fond[0].equals(pi) || image.fond[1].equals(pi) || image.fond[2].equals(pi) || image.fond[3].equals(pi)){
+					 			g.drawImage(Redcroix, (int) ((pi.x)/scale-10), (int)((pi.y)/scale-10), null);
+					 		}
+					 		else {
+					 			g.drawImage(croix, (int) ((pi.x)/scale-10), (int)((pi.y)/scale-10), null);
+
+					 		}
 					 	}
 				 	}
 				}
