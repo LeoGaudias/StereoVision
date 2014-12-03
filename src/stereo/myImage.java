@@ -40,19 +40,20 @@ public class myImage extends BufferedImage {
 		return new Mask(colors, center);
 	}
 	
-	public boolean findMask(Mask m) {
+	public Point findMask(Mask m) {
 		float max = 0.0f;
-		for (int j = m.centre.y-m.taille; j<m.centre.x+m.taille; j++) {
-			for (int i = m.taille; i<this.getWidth()-m.taille; i++) {
+		Point p = new Point();
+		for (int j = m.centre.y-m.taille; j<m.centre.y+m.taille; j++) {
+			for (int i = m.centre.x+m.taille; i<this.getWidth()-m.taille; i++) {
 				Mask m2 = getMask(new Point(i,j), m.taille);
 				float ressemble = m.ressemblance(m2);
 				if (ressemble > max) {
 					max = ressemble;
-					System.out.println("["+i+","+j+"]="+ressemble);
+					p.setLocation(i, j);
 				}
 			}
 		}
-		return true;
+		return p;
 	}
 
 	public ArrayList<Point> findGreenPoints(){

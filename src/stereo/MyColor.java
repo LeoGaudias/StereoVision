@@ -36,7 +36,8 @@ public class MyColor {
 	}
 	
 	public float ressemblance(MyColor c) {
-		return (5*c.h/h + 3*c.s/s + 2*c.b/b)/10;
+//		return (5*c.h/h + 3*c.s/s + 2*c.b/b)/10;
+		return c.h*h;
 	}
 	
 }

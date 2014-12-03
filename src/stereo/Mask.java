@@ -46,7 +46,7 @@ public class Mask {
 				f += pixels[i][j].ressemblance(m.pixels[i][j]);
 			}
 		}
-		return f/((float)taille*2+1*(float)taille*2+1);
+		return f/((float)(taille*2+1)*(float)(taille*2+1));
 	}
 	
 	public void print() {
