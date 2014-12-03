@@ -106,7 +106,7 @@ public class myImage extends BufferedImage {
 				
 		ArrayList<ArrayList<Point>> patates = new ArrayList<ArrayList<Point>>();
 		
-		int nbCentre = 0;
+//		int nbCentre = 0;
 		for(Point pi : li){
 			
 			boolean added = false;
@@ -146,7 +146,7 @@ public class myImage extends BufferedImage {
 			Point Centre = new Point(x,y);
 			reperes.add(Centre);
 			
-			nbCentre++;
+//			nbCentre++;
 		}
 		
 
@@ -169,7 +169,7 @@ public class myImage extends BufferedImage {
 			fond[i] = tmp;
 		}
 		
-		System.out.println(fond[0] + " " + fond[1] + " " + fond[2] + " " + fond[3] + " ");
+//		System.out.println(fond[0] + " " + fond[1] + " " + fond[2] + " " + fond[3] + " ");
 
 		
 		/*System.out.println(reperes
@@ -193,7 +193,7 @@ public class myImage extends BufferedImage {
 				minY = p.y;
 		}
 		
-		System.out.println(maxX + " " + minX + " " + maxY + " " + minY + " ");
+//		System.out.println(maxX + " " + minX + " " + maxY + " " + minY + " ");
 		
 		int r = 200;
 		if(Math.abs(fond[0].x - minX) > r || Math.abs(fond[0].y - minY) > r){
@@ -218,7 +218,7 @@ public class myImage extends BufferedImage {
 			
 		
 		
-		System.out.println(fond[0] + " " + fond[1] + " " + fond[2] + " " + fond[3] + " ");
+//		System.out.println(fond[0] + " " + fond[1] + " " + fond[2] + " " + fond[3] + " ");
 		
 		return fond;
 	}

@@ -25,6 +25,7 @@ import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import stereo.Mask;
+import stereo.StereoImages;
 import stereo.myImage;
 
 @SuppressWarnings("serial")
@@ -192,9 +193,11 @@ public class MainWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 //				myImage left = new myImage(imgLeft.image);
 				myImage left = imgLeft.image;
-				left.findGreenPoints();
-				Mask m1 = left.getMask(left.reperes.get(0), 10);
-				m1.print();
+				myImage right = imgRight.image;
+				StereoImages si = new StereoImages(left, right, jsEcart.getValue());
+//				left.findGreenPoints();
+//				Mask m1 = left.getMask(left.reperes.get(0), 10);
+//				m1.print();
 //				myImage right = new myImage(imgRight.image);
 //				Mask m2 = right.getMask(right.reperes.get(1), 10);
 //				System.out.println(right.findMask(m2));
