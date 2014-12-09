@@ -77,14 +77,18 @@ public class MainWindow extends JFrame {
 					 	g.drawImage(image, 0, 0, getWidth(), (int) height, null);
 					 	
 					 	ArrayList<Point> greenPoints = image.findGreenPoints();
-					 	image.IsCarree();
+//					 	image.IsCarree();
 					 	
 					 	for(Point pi : greenPoints){
+				 			String s = "["+pi.getX()+","+pi.getY()+"]";
 					 		if(image.fond[0].equals(pi) || image.fond[1].equals(pi) || image.fond[2].equals(pi) || image.fond[3].equals(pi)){
 					 			g.drawImage(Redcroix, (int) ((pi.x)/scale-10), (int)((pi.y)/scale-10), null);
+					 			g.drawChars(s.toCharArray(), 0, s.length(), (int) ((pi.x)/scale-10)+5, (int)((pi.y)/scale-10)+5);
+
 					 		}
 					 		else {
 					 			g.drawImage(croix, (int) ((pi.x)/scale-10), (int)((pi.y)/scale-10), null);
+					 			g.drawChars(s.toCharArray(), 0, s.length(), (int) ((pi.x)/scale-10)+5, (int)((pi.y)/scale-10)+5);
 
 					 		}
 					 	}
@@ -193,13 +197,15 @@ public class MainWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				myImage left = imgLeft.image;
 				myImage right = imgRight.image;
-				for (Point p : left.reperes) {
-					System.out.print(p);
-					Mask m1 = left.getMask(p, 10);
-					System.out.println(" "+right.findMask(m1));
-				}
-				System.out.println(left.reperes);
-				System.out.println(right.reperes);
+				StereoImages si = new StereoImages(left, right, jsEcart.getValue());
+				si.calcul();
+//				for (Point p : left.reperes) {
+//					System.out.print(p);
+//					Mask m1 = left.getMask(p, 20);
+//					System.out.println(" "+right.findMask(m1));
+//				}
+//				System.out.println(left.reperes);
+//				System.out.println(right.reperes);
 			}
 			
 		});

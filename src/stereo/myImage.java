@@ -23,9 +23,10 @@ public class myImage extends BufferedImage {
 	}
 	
 	public MyColor getHSB(int i, int j) {
-		Color c = new Color(this.getRGB(i, j));
-		float[] hsb = Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), null);
-		return new MyColor(hsb);
+//		Color c = new Color(this.getRGB(i, j));
+//		float[] hsb = Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), null);
+//		return new MyColor(hsb);
+		return new MyColor(new Color(this.getRGB(i, j)));
 	}
 	
 	//Retourne un mask autour d'un point
@@ -40,20 +41,40 @@ public class myImage extends BufferedImage {
 		return new Mask(colors, center);
 	}
 	
+//	public Point findMask(Mask m) {
+//		float max = 0.0f;
+//		Point p = new Point();
+//		for (int j = m.centre.y-m.taille; j<m.centre.y+m.taille; j++) {
+//			for (int i = m.centre.x+m.taille; i<this.getWidth()-m.taille; i++) {
+//				Mask m2 = getMask(new Point(i,j), m.taille);
+//				float ressemble = m.ressemblance(m2);
+//				if (ressemble > max) {
+//					max = ressemble;
+//					p.setLocation(i, j);
+//				}
+//			}
+//		}
+//		return p;
+//	}
+	
+	public boolean sameLine(Point p1, Point p2, int taille) {
+		return (p2.getY() <= p1.getY()+taille && p2.getY() >= p1.getY()-taille && p2.getX() <= p1.getX());
+	}
+	
 	public Point findMask(Mask m) {
 		float max = 0.0f;
-		Point p = new Point();
-		for (int j = m.centre.y-m.taille; j<m.centre.y+m.taille; j++) {
-			for (int i = m.centre.x+m.taille; i<this.getWidth()-m.taille; i++) {
-				Mask m2 = getMask(new Point(i,j), m.taille);
+		Point pres = new Point();
+		for (Point p : reperes) {
+			Mask m2 = getMask(p, m.taille);
+			if (sameLine(p, m.centre, m.taille*2+1)) {
 				float ressemble = m.ressemblance(m2);
 				if (ressemble > max) {
 					max = ressemble;
-					p.setLocation(i, j);
+					pres = p;
 				}
 			}
 		}
-		return p;
+		return pres;
 	}
 
 	public ArrayList<Point> findGreenPoints(){
@@ -180,61 +201,61 @@ public class myImage extends BufferedImage {
 		
 	}
 	
-	public Point[] IsCarree(){
-		
-		int maxX = 0, minX = getWidth(), maxY = 0, minY = getHeight();			
-		for(Point p : fond){
-			if(p.x > maxX)
-				maxX = p.x;
-			if(p.x < minX)
-				minX = p.x;
-			if(p.y > maxY)
-				maxY = p.y;
-			if(p.y < minY)
-				minY = p.y;
-		}
-		
-//		System.out.println(maxX + " " + minX + " " + maxY + " " + minY + " ");
-		
-		int r = 200;
-		if(Math.abs(fond[0].x - minX) > r || Math.abs(fond[0].y - minY) > r){
-			fond[0] = new Point(fond[2].x, fond[1].y);
-			reperes.add(fond[0]);
-		}
-			
-		if(Math.abs(fond[1].x - maxX) > r || Math.abs(fond[1].y - minY) > r){
-			fond[1] = new Point(fond[3].x, fond[0].y);
-			reperes.add(fond[1]);
-		}
-			
-		if(Math.abs(fond[2].x - minX) > r || Math.abs(fond[2].y - maxY) > r){
-			fond[2] = new Point(fond[0].x, fond[3].y);
-			reperes.add(fond[2]);
-		}
-			
-		if(Math.abs(fond[3].x - maxX) > r || Math.abs(fond[3].y - maxY) > r){
-			fond[3] = new Point(fond[1].x, fond[2].y);
-			reperes.add(fond[3]);
-		}
-			
-		
-		
-//		System.out.println(fond[0] + " " + fond[1] + " " + fond[2] + " " + fond[3] + " ");
-		
-		return fond;
-	}
+//	public Point[] IsCarree(){
+//		
+//		int maxX = 0, minX = getWidth(), maxY = 0, minY = getHeight();			
+//		for(Point p : fond){
+//			if(p.x > maxX)
+//				maxX = p.x;
+//			if(p.x < minX)
+//				minX = p.x;
+//			if(p.y > maxY)
+//				maxY = p.y;
+//			if(p.y < minY)
+//				minY = p.y;
+//		}
+//		
+////		System.out.println(maxX + " " + minX + " " + maxY + " " + minY + " ");
+//		
+//		int r = 200;
+//		if(Math.abs(fond[0].x - minX) > r || Math.abs(fond[0].y - minY) > r){
+//			fond[0] = new Point(fond[2].x, fond[1].y);
+//			reperes.add(fond[0]);
+//		}
+//			
+//		if(Math.abs(fond[1].x - maxX) > r || Math.abs(fond[1].y - minY) > r){
+//			fond[1] = new Point(fond[3].x, fond[0].y);
+//			reperes.add(fond[1]);
+//		}
+//			
+//		if(Math.abs(fond[2].x - minX) > r || Math.abs(fond[2].y - maxY) > r){
+//			fond[2] = new Point(fond[0].x, fond[3].y);
+//			reperes.add(fond[2]);
+//		}
+//			
+//		if(Math.abs(fond[3].x - maxX) > r || Math.abs(fond[3].y - maxY) > r){
+//			fond[3] = new Point(fond[1].x, fond[2].y);
+//			reperes.add(fond[3]);
+//		}
+//			
+//		
+//		
+////		System.out.println(fond[0] + " " + fond[1] + " " + fond[2] + " " + fond[3] + " ");
+//		
+//		return fond;
+//	}
 	
-	public static void main(String[] args){
-		myImage img = null;
-		try {
-			img = new myImage(ImageIO.read(new File("img/book_right.jpg")));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		img.findGreenPoints();
-		img.IsCarree();
-		
-	}
+//	public static void main(String[] args){
+//		myImage img = null;
+//		try {
+//			img = new myImage(ImageIO.read(new File("img/book_right.jpg")));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		img.findGreenPoints();
+//		img.IsCarree();
+//		
+//	}
 
 }
