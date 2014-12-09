@@ -127,9 +127,9 @@ public class MainWindow extends JFrame {
 		jbPoints.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+			public void actionPerformed(ActionEvent e) {	
+				imgLeft.drawPoints();
+				imgRight.drawPoints();
 			}
 			
 		});

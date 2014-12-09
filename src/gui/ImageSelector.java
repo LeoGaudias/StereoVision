@@ -32,6 +32,8 @@ public class ImageSelector extends JPanel {
 	public ImagePanel jpImage;
 	private JButton jb;
 	
+	public boolean boolPoint; 
+	
 	public ImageSelector() {
 		setWindowElements();
 		setEvents();
@@ -55,8 +57,14 @@ public class ImageSelector extends JPanel {
 		jpImage = new ImagePanel();
 		add(top, BorderLayout.NORTH);
 		add(jpImage, BorderLayout.CENTER);
+		
+		boolPoint = false;
 	}
 	
+	public void drawPoints(){
+		boolPoint = true;
+		this.repaint();
+	}
 	public void setEvents() {
 		jb.addActionListener(new ActionListener(){
 
@@ -103,24 +111,25 @@ public class ImageSelector extends JPanel {
 		 		double scale = (double)image.getWidth()/(double)getWidth();
 		 		double height = (double)image.getHeight()/scale;
 			 	g.drawImage(image, 0, 0, getWidth(), (int) height, null);
-
-			 	ArrayList<Point> greenPoints = image.findGreenPoints();
-//				 	image.IsCarree();
 			 	
-			 	for(Point pi : greenPoints){
-		 			String s = "["+pi.getX()+","+pi.getY()+"]";
-			 		if(image.fond[0].equals(pi) || image.fond[1].equals(pi) || image.fond[2].equals(pi) || image.fond[3].equals(pi)){
-				 			g.drawImage(Redcroix, (int) ((pi.x)/scale-10), (int)((pi.y)/scale-10), null);
+			 	if(boolPoint) {
+			 		ArrayList<Point> greenPoints = image.findGreenPoints();
+			 	
+			 	
+				 	for(Point pi : greenPoints){
+			 			String s = "["+pi.getX()+","+pi.getY()+"]";
+				 		if(image.fond[0].equals(pi) || image.fond[1].equals(pi) || image.fond[2].equals(pi) || image.fond[3].equals(pi)){
+					 			g.drawImage(Redcroix, (int) ((pi.x)/scale-10), (int)((pi.y)/scale-10), null);
+					 			g.drawChars(s.toCharArray(), 0, s.length(), (int) ((pi.x)/scale-10)+5, (int)((pi.y)/scale-10)+5);
+	
+				 		}
+				 		else {
+				 			g.drawImage(croix, (int) ((pi.x)/scale-10), (int)((pi.y)/scale-10), null);
 				 			g.drawChars(s.toCharArray(), 0, s.length(), (int) ((pi.x)/scale-10)+5, (int)((pi.y)/scale-10)+5);
-
-			 		}
-			 		else {
-			 			g.drawImage(croix, (int) ((pi.x)/scale-10), (int)((pi.y)/scale-10), null);
-			 			g.drawChars(s.toCharArray(), 0, s.length(), (int) ((pi.x)/scale-10)+5, (int)((pi.y)/scale-10)+5);
-
-			 		}
+	
+				 		}
+				 	}
 			 	}
-
 		 	}
 		}
 	}
