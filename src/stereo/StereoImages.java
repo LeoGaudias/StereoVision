@@ -11,8 +11,13 @@ public class StereoImages {
 	ArrayList<Vector<Point>> matchs;
 	
 	double cm1;
+	double mmperpixel;
 	int ecart;
 	double ecartPix;
+	
+	double D; // distance entre les deux centres optiques (10cm)
+	double f; //distance focale
+	
 	
 	public StereoImages(myImage left, myImage right, Object e) {
 		int ec = (Integer)e;
@@ -42,8 +47,13 @@ public class StereoImages {
 		//System.out.println(cm50/50);
 //		cm1 = 21.6/50;
 		cm1 = 21.6;
-		ecart = e;
-		ecartPix = e * cm1;
+		mmperpixel = 0.16947;
+		ecart = e*10;
+		ecartPix = e/mmperpixel;
+		
+		
+		D = (e*10)/mmperpixel;
+		f = 3.4/mmperpixel;
 	}
 	
 //	public void calcul() {
@@ -70,19 +80,26 @@ public class StereoImages {
 	public double calculProfondeur(Vector<Point> pts) {
 		Point p2 = pts.get(0);
 		Point p1 = pts.get(1);
-		double d = p1.distance(p2);
-		System.out.println("d:"+d);
-		double o1o2 = ecartPix;
-//		System.out.println("o1o2:"+o1o2);
-		double focale = cm1*0.34;
-		Point milieu = new Point(imgLeft.getWidth()/2, imgLeft.getHeight()/2);
-		double distanceMilieu = p1.distance(milieu);
-//		System.out.println("distanceMilieu:"+distanceMilieu);
-		double o1p1 = Math.sqrt(Math.pow(focale, 2)+Math.pow(distanceMilieu, 2));
-//		System.out.println("o1p1:"+o1p1);
 		
-		double profondeur = -(d/o1o2)*o1p1;
-		return profondeur/cm1;
+		double delta = p1.distance(p2);
+		double z = (2*D*f)/delta;
+		return z;
+		
+		
+		
+//		double d = p1.distance(p2);
+////		System.out.println("d:"+d);
+//		double o1o2 = ecartPix;
+////		System.out.println("o1o2:"+o1o2);
+//		double focale = mmperpixel*3.4;
+//		Point milieu = new Point(imgLeft.getWidth()/2, imgLeft.getHeight()/2);
+//		double distanceMilieu = p1.distance(milieu);
+////		System.out.println("distanceMilieu:"+distanceMilieu);
+//		double o1p1 = Math.sqrt(Math.pow(focale, 2)+Math.pow(distanceMilieu, 2));
+////		System.out.println("o1p1:"+o1p1);
+//		
+//		double profondeur = (d/o1o2)*o1p1;
+//		return profondeur*mmperpixel/10;
 	}
 	
 }
