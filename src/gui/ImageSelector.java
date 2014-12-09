@@ -79,8 +79,8 @@ public class ImageSelector extends JPanel {
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
 					filePath = jfcImage.getSelectedFile().getAbsolutePath();
 					jtxtImage.setText(filePath);
-					 
 					jpImage.setImage(filePath);
+					boolPoint = false;
 					jpImage.repaint();
 			    }
 			}

@@ -68,7 +68,6 @@ public class myImage extends BufferedImage {
 		
 		for(int i = r; i < width - r; i++){
 			for(int j = r; j < height - r; j++){
-				float min = 1, max = 0;
 				sat = 0;
 				bri = 0;
 				in = true;
@@ -76,10 +75,6 @@ public class myImage extends BufferedImage {
 					for(int n = -r; n < r + 1 && in; n++){
 						
 						MyColor mc = this.getHSB(i+m, j+n);
-						if(mc.h > max)
-							max = mc.h;
-						if(mc.h < min)
-							min = mc.h;
 						sat += mc.s;
 						bri += mc.b;
 						if(!(mc.h > 0.27
@@ -96,7 +91,6 @@ public class myImage extends BufferedImage {
 						&& bri > 0.21 
 						)
 				{
-					//System.out.println("i : "+i+" j : "+ j + " | sat : "+ sat+ " bri : "+bri+ " min/max :"+min+"/"+max);
 					Point p1 = new Point(i,j);
 					li.add(p1);
 				}
@@ -105,7 +99,6 @@ public class myImage extends BufferedImage {
 				
 		ArrayList<ArrayList<Point>> patates = new ArrayList<ArrayList<Point>>();
 		
-//		int nbCentre = 0;
 		for(Point pi : li){
 			
 			boolean added = false;
