@@ -39,7 +39,7 @@ public class MyColor {
 		if (this == obj) return true;
 		if (obj instanceof MyColor) {
 			MyColor c = (MyColor)obj;
-			if (c.h == h && c.s == s && c.b == b) {
+			if (c.h == h && c.s == s && c.b == b && c.red == red && c.green == green && c.blue == blue) {
 				return true;
 			} else {
 				return false;

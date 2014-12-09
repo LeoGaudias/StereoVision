@@ -3,11 +3,7 @@ package stereo;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 public class myImage extends BufferedImage {
 	
@@ -23,9 +19,6 @@ public class myImage extends BufferedImage {
 	}
 	
 	public MyColor getHSB(int i, int j) {
-//		Color c = new Color(this.getRGB(i, j));
-//		float[] hsb = Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), null);
-//		return new MyColor(hsb);
 		return new MyColor(new Color(this.getRGB(i, j)));
 	}
 	
@@ -40,22 +33,6 @@ public class myImage extends BufferedImage {
 		}
 		return new Mask(colors, center);
 	}
-	
-//	public Point findMask(Mask m) {
-//		float max = 0.0f;
-//		Point p = new Point();
-//		for (int j = m.centre.y-m.taille; j<m.centre.y+m.taille; j++) {
-//			for (int i = m.centre.x+m.taille; i<this.getWidth()-m.taille; i++) {
-//				Mask m2 = getMask(new Point(i,j), m.taille);
-//				float ressemble = m.ressemblance(m2);
-//				if (ressemble > max) {
-//					max = ressemble;
-//					p.setLocation(i, j);
-//				}
-//			}
-//		}
-//		return p;
-//	}
 	
 	public boolean sameLine(Point p1, Point p2, int taille) {
 		return (p2.getY() <= p1.getY()+taille && p2.getY() >= p1.getY()-taille && p2.getX() <= p1.getX());
